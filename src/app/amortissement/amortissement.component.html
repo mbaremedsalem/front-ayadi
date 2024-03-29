@@ -1,0 +1,49 @@
+
+
+<h2>Tableau de d'Amortissement</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Rembourssement</th>
+            <th>Capital</th>
+            <th>Interet</th>
+            <th>Tof</th>
+            <th>Capital Restendus</th>
+            <th>Date reservation </th>
+            <th>Capital Compta</th>
+            <th>Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let amortissement of pret">
+            <td>
+              <input type="checkbox" [checked]="amortissement.isSelected" class="select-checkbox">
+            </td>
+
+
+            <td>{{ amortissement.compte }}</td>
+            <td>{{ amortissement.client }}</td>
+            <td>{{ amortissement.nom }}</td>
+            <td>{{ amortissement.motant_credit }}</td>
+            <td>{{ amortissement.duree }}</td>
+            <td>{{ amortissement.status }}</td>
+            <td>
+              <button type="button" class="btn btn-link">
+                <i class="fas fa-pencil-alt"></i> Modifier
+              </button>
+              <button type="button" class="btn btn-link text-danger" data-toggle="modal" [attr.data-target]="'#modalDeleteArticle'">
+                <i class="fas fa-trash-alt"></i> Supprimer
+              </button>
+              <button type="button" class="btn btn-link">
+                <i class="far fa-list-alt"></i> Détails
+              </button>
+            </td>
+          </tr>
+        <!-- Ajoutez plus de lignes de données au besoin -->
+    </tbody>
+</table>
+
+
+
