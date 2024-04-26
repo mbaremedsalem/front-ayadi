@@ -8,19 +8,26 @@ import { LoginComponent } from './login/login.component';
 import { AmortissementComponent } from './amortissement/amortissement.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { DossierComponent } from './dossier/dossier.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AmortissementComponent
+    AmortissementComponent,
+    DossierComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

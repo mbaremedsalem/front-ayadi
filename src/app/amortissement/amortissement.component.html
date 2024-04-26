@@ -1,48 +1,55 @@
+<div class="container-search">
+  <div class="input-group flex-nowrap">
+    <input type="text" class="form-control" placeholder="search" aria-label="Username" aria-describedby="addon-wrapping">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+    </div>
+  </div>
+</div>
 
+<div *ngIf="entetCliData">
+  <h1>Données du dossier</h1>
+  <ul>
+    <li><strong>Numéro de dossier:</strong> {{ entetCliData[0]?.Numero_Dossier }}</li>
+    <li><strong>Type Mourabaha:</strong> {{ entetCliData[0]?.type_moura }}</li>
+    <li><strong>Date MEP:</strong> {{ entetCliData[0]?.date_mep | date:'dd/MM/yyyy'}}</li>
+    <li><strong>Date 1ère échéance:</strong> {{ entetCliData[0]?.date_1ech | date:'dd/MM/yyyy'}}</li>
+    <li><strong>Nombre d'echeance:</strong> {{ entetCliData[0]?.duree_mourabaha }}</li>
+    <li><strong>TOF:</strong> {{ entetCliData[0]?.TOF }}</li>
+  </ul>
+</div>
 
-<h2>Tableau de d'Amortissement</h2>
+<h2>Tableau d'Amortissement</h2>
 
 <table>
-    <thead>
-        <tr>
-            <th>Rembourssement</th>
-            <th>Capital</th>
-            <th>Interet</th>
-            <th>Tof</th>
-            <th>Capital Restendus</th>
-            <th>Date reservation </th>
-            <th>Capital Compta</th>
-            <th>Actions</th>
+  <thead>
+      <tr>
+          <th>Date</th>
+          <th class="mont">Capital</th>
+          <th class="mont">Marge</th>
+          <th class="mont">Tof</th>
+          <th class="mont">Echeance</th>
+          <th class="mont">Capital Restent Dû</th>
+
+
+
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let amortissement of results">
+
+        
+         
+          <td>{{ amortissement.DATRMB | date:'dd/MM/yyyy'}} </td>
+          <td class="mont">{{ amortissement.MNTCAP }}</td>
+          <td class="mont">{{ amortissement.MNTINT }}</td>
+          <td class="mont">{{ amortissement.MNTTAXE }}</td>
+          <td class="mont">{{ amortissement.MNTRMB }}</td>
+          <td class="mont">{{ amortissement.SLDAMO }}</td>
 
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let amortissement of pret">
-            <td>
-              <input type="checkbox" [checked]="amortissement.isSelected" class="select-checkbox">
-            </td>
-
-
-            <td>{{ amortissement.compte }}</td>
-            <td>{{ amortissement.client }}</td>
-            <td>{{ amortissement.nom }}</td>
-            <td>{{ amortissement.motant_credit }}</td>
-            <td>{{ amortissement.duree }}</td>
-            <td>{{ amortissement.status }}</td>
-            <td>
-              <button type="button" class="btn btn-link">
-                <i class="fas fa-pencil-alt"></i> Modifier
-              </button>
-              <button type="button" class="btn btn-link text-danger" data-toggle="modal" [attr.data-target]="'#modalDeleteArticle'">
-                <i class="fas fa-trash-alt"></i> Supprimer
-              </button>
-              <button type="button" class="btn btn-link">
-                <i class="far fa-list-alt"></i> Détails
-              </button>
-            </td>
-          </tr>
-        <!-- Ajoutez plus de lignes de données au besoin -->
-    </tbody>
+      <!-- Ajoutez plus de lignes de données au besoin -->
+  </tbody>
 </table>
 
 

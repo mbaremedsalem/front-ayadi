@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AmortissementComponent } from './amortissement/amortissement.component';
 import { LoginComponent } from './login/login.component';
+import { DossierComponent } from './dossier/dossier.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
 
   {
-    path:'',
+    path: 'amortissement/:nooper',
     component:AmortissementComponent,
     // children:[
     //   {
@@ -22,7 +23,11 @@ const routes: Routes = [
     //     component:PageArticlesComponent,
     //   },
     // ]
-  }
+  },
+  {
+    path:'dossier',
+    component:DossierComponent
+  },
 ];
 
 @NgModule({
