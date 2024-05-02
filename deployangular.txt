@@ -5,7 +5,7 @@ deployement angular on server ubuntu using nginx
 2- Utilisez la commande "npm run build" pour créer une version de production de votre application Angular.
  Cela va générer un dossier "dist" contenant les fichiers à servir.
 
-NB: avant de cree une version de production faux que vous connecter en tanque root et donner le droit daccees sur sure tous les fichier par cette commande 
+NB: avant de cree une version de production faux que vous connecter en tanque root "sudo su"et donner le droit daccees sur sure tous les fichier par cette commande 
 chmod -R 777 /appli/frontend-intranet/ et aussi par fois necessite une aumentation du taille du budget
               "budgets": [
                 {
@@ -25,7 +25,7 @@ chmod -R 777 /appli/frontend-intranet/ et aussi par fois necessite une aumentati
 
 4- Configuration de Nginx pour servir votre application Angular
 
-cree en fichier "/etc/nginx/sites-available/angular.conf" et ajouter ca de dans :
+cree en fichier "/etc/nginx/sites-available/intranet.conf" et ajouter ca de dans :
 
 server {
     listen 81;
@@ -50,8 +50,9 @@ server {
 }
 
 5- Créez un lien symbolique vers votre fichier de configuration dans le répertoire /etc/nginx/sites-enabled/ :
-	sudo ln -s /etc/nginx/sites-available/angular.conf /etc/nginx/sites-enabled/
+	sudo ln -s /etc/nginx/sites-available/intranet.conf /etc/nginx/sites-enabled/
 
 sudo nginx -t
 
-sudo supervisorctl reload && sudo systemctl reload nginx
+sudo supervisorctl reload && sudo sudo systemctl reload nginx
+
