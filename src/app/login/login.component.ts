@@ -27,12 +27,11 @@ export class LoginComponent {
          this.message = response.message; 
            localStorage.setItem('access', response.access);  
            // Redirect to the home page
-<<<<<<< HEAD
+
            this.router.navigate(['dossier']);
-=======
-           this.router.navigate(['']);
->>>>>>> 8f4a3d453f9b2435ffc2f36cbb6efce105c66f09
-       }
+
+//         this.router.navigate(['']);
+  }
        else
        {
          this.message = response.message;
@@ -50,8 +49,5 @@ export class LoginComponent {
      this.loginInProgress = false; // Set to false after login completes (whether success or error)
    });
  }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 8f4a3d453f9b2435ffc2f36cbb6efce105c66f09

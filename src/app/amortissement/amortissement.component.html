@@ -1,109 +1,68 @@
-<div class="container-search">
-  <div class="input-group flex-nowrap">
-    <input type="text" class="form-control" placeholder="search" aria-label="Username" aria-describedby="addon-wrapping">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
-    </div>
+<div *ngIf="entetCliData" class="flex-container">
+  <div class="left-content">
+    <h1>Données du dossier</h1>
+    <ul>
+      <li><strong>Numéro de dossier:</strong>  {{ entetCliData[0]?.Numero_Dossier }}</li>
+      <li><strong>Type De Pret:</strong> {{ entetCliData[0]?.Type_De_Pret }}</li>
+      <li><strong>Date Mis En Place:</strong> {{ entetCliData[0]?.date_mep | date:'dd/MM/yyyy'}}</li>
+      <li><strong>Date 1ère échéance:</strong> {{ entetCliData[0]?.date_1ech | date:'dd/MM/yyyy'}}</li>
+      <li><strong>Date Derniere échéance:</strong> {{ entetCliData[0]?.date_dern_ech | date:'dd/MM/yyyy'}}</li>
+    </ul>
+  </div>
+  
+  <div class="right-content">
+    <h1>Prix</h1>
+    <ul>
+      <li><strong>Prix d'Achat(Capital):</strong> {{ entetCliData[0]?.prix_achat }} MRO</li>
+      <li><strong>Prix de Vente (HT):</strong> {{ entetCliData[0]?.prix_vente }} MRO</li>
+      <li><strong>Prix de Vente (TTC):</strong> {{ entetCliData[0]?.prix_vente }} MRO</li>
+      <li><strong>Durée de mourabaha:</strong> {{ entetCliData[0]?.duree_mourabaha }} Mois</li>
+      <li><strong>TOF:</strong> {{ entetCliData[0]?.TOF }}%</li>
+    </ul>
   </div>
 </div>
 
-<div *ngIf="entetCliData">
-  <h1>Données du dossier</h1>
-  <ul>
-    <li><strong>Numéro de dossier:</strong> {{ entetCliData[0]?.Numero_Dossier }}</li>
-    <li><strong>Type Mourabaha:</strong> {{ entetCliData[0]?.type_moura }}</li>
-    <li><strong>Date MEP:</strong> {{ entetCliData[0]?.date_mep | date:'dd/MM/yyyy'}}</li>
-    <li><strong>Date 1ère échéance:</strong> {{ entetCliData[0]?.date_1ech | date:'dd/MM/yyyy'}}</li>
-    <li><strong>Nombre d'echeance:</strong> {{ entetCliData[0]?.duree_mourabaha }}</li>
-    <li><strong>TOF:</strong> {{ entetCliData[0]?.TOF }}</li>
-  </ul>
+
+<div class="p-2 d-flex align-items-center ">
+  <h2 class="flex-grow-1">Tableau d'Amortissement</h2>
+  <button type="button" class="btn btn-success" (click)="printTable()">
+    <i class="fas fa-cloud-download-alt"></i>&nbsp; Imprimer
+  </button>
 </div>
-
-<h2>Tableau d'Amortissement</h2>
-
-<table>
-  <thead>
-      <tr>
-          <th>Date</th>
-          <th class="mont">Capital</th>
-          <th class="mont">Marge</th>
-          <th class="mont">Tof</th>
-          <th class="mont">Echeance</th>
-          <th class="mont">Capital Restent Dû</th>
-
-
-
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let amortissement of results">
-
-        
-         
-          <td>{{ amortissement.DATRMB | date:'dd/MM/yyyy'}} </td>
-          <td class="mont">{{ amortissement.MNTCAP }}</td>
-          <td class="mont">{{ amortissement.MNTINT }}</td>
-          <td class="mont">{{ amortissement.MNTTAXE }}</td>
-          <td class="mont">{{ amortissement.MNTRMB }}</td>
-          <td class="mont">{{ amortissement.SLDAMO }}</td>
-
+<div class="TB-flex-container"> 
+  <table>
+    <thead>
+        <tr>
+            <th>Numero</th>
+            <th>Date</th>
+            <th class="mont">Capital</th>
+            <th class="mont">Marge</th>
+            <th class="mont">TOF</th>
+            <th class="mont">Echéance</th>
+            <th class="mont">Capital Restent Dû</th>
         </tr>
-<<<<<<< HEAD
-      <!-- Ajoutez plus de lignes de données au besoin -->
-  </tbody>
-=======
     </thead>
     <tbody>
-        <tr >
-            <td>
-              <input type="checkbox"  class="select-checkbox">
-            </td>
-
-
-            <td>compte </td>
-            <td>client </td>
-            <td>nom </td>
-            <td>motant_credit </td>
-            <td>duree </td>
-            <td>status </td>
-            <td>
-              <button type="button" class="btn btn-link">
-                <i class="fas fa-pencil-alt"></i> Modifier
-              </button>
-              <button type="button" class="btn btn-link text-danger" data-toggle="modal" [attr.data-target]="'#modalDeleteArticle'">
-                <i class="fas fa-trash-alt"></i> Supprimer
-              </button>
-              <button type="button" class="btn btn-link">
-                <i class="far fa-list-alt"></i> Détails
-              </button>
-              <!-- <div class="col-md-4 text-right">
-                <div class="d-flex">
-                  <div  class="p-2 flex-fill">
-                    <button type="button" class="btn btn-warning">
-                      <i class="fas fa-cloud-upload-alt"></i>&nbsp;
-                      Remonter
-                    </button>
-                  </div>
-                  <div class="p-2 flex-fill">
-                    <button type="button" class="btn btn-success">
-                      <i class="fas fa-cloud-download-alt"></i>&nbsp;
-                      Exporter
-                    </button>
-                  </div>
-                  <div class="p-2 flex-fill " >
-                    <button type="button" class="btn btn-primary" >
-                      <i class="fas fa-plus"></i>&nbsp;
-                      Nouveau
-                    </button>
-                  </div>
-                </div>
-              </div> -->
-            </td>
+        <tr *ngFor="let amortissement of results">
+  
+          
+            <td>{{ amortissement.id }}</td>
+            <td>{{ amortissement.DATRMB | date:'dd/MM/yyyy'}} </td>
+            <td class="mont">{{ amortissement.MNTCAP }}</td>
+            <td class="mont">{{ amortissement.MNTINT }}</td>
+            <td class="mont">{{ amortissement.MNTTAXE }}</td>
+            <td class="mont">{{ amortissement.MNTRMB }}</td>
+            <td class="mont">{{ amortissement.SLDAMO }}</td>
+  
           </tr>
+  
         <!-- Ajoutez plus de lignes de données au besoin -->
     </tbody>
->>>>>>> 8f4a3d453f9b2435ffc2f36cbb6efce105c66f09
-</table>
-
+  
+      
+  </table>
+  
+  
+</div>
 
 

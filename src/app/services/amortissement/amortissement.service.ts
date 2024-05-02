@@ -20,4 +20,15 @@ export class AmortissementService {
     const body = { cliprt, nooper };
     return this.http.post<any>(`${API_BASE}get-entet-cli/`, body);
   }
+
+  printTable(tableId: string) {
+    const printContents = document.getElementById(tableId)?.outerHTML;
+    const printWindow = window.open('', '_blank');
+    printWindow?.document.write('<html><head><title>Tableau d\'Amortissement</title></head><body>');
+    printWindow?.document.write('<h2>Tableau d\'Amortissement</h2>');
+    printWindow?.document.write(printContents!);
+    printWindow?.document.write('</body></html>');
+    printWindow?.document.close();
+    printWindow?.print();
+  }
 }

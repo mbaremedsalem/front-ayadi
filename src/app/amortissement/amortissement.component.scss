@@ -34,3 +34,24 @@ tr:hover {
 .mont{
     text-align: right;
 }
+
+.flex-container {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+.left-content,.right-content {
+    flex-basis: 100%;
+}
+.TB-flex-container  {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex-direction: column;
+}
+
+.print-image img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }

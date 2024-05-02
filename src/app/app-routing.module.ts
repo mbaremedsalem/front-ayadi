@@ -11,7 +11,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'amortissement/:nooper',
+    path: 'amortissement/:nooper/:cliprt',
     component:AmortissementComponent,
     // children:[
     //   {
