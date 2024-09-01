@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class WalletService {
 
-  private apiUrl = 'http://127.0.0.1:8000/ayadi/get-wallets/';
-  private apiUrl1 = 'http://127.0.0.1:8000/ayadi/demand_payment/';
+  private apiUrl = 'https://ayadi-mouhssine-d90e75044b80.herokuapp.com/ayadi/get-wallets/';
+  private apiUrl1 = 'https://ayadi-mouhssine-d90e75044b80.herokuapp.com/ayadi/demand_payment/';
   constructor(private http: HttpClient) {}
 
   getWallets(): Observable<any> {
