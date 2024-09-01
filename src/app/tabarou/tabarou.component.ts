@@ -7,6 +7,7 @@ import { WalletService } from '../services/wallet/wallet.service';
   styleUrls: ['./tabarou.component.scss']
 })
 export class TabarouComponent implements OnInit{
+  loginInProgress = false;
   wallets: any[] = [];
   selectedOptionImage: string = '';
   selectedOptionText: string = '';
@@ -52,9 +53,11 @@ export class TabarouComponent implements OnInit{
 
 
   onConfirm() {
+    this.loginInProgress = true; 
     this.walletService.makePayment(this.paymentData).subscribe(response => {
       if (response.status === 200) {
         this.codePaiement = response.data.code_paiement;
+        this.loginInProgress = true;
       }
     });
   }
