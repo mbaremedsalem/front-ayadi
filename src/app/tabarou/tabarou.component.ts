@@ -13,8 +13,8 @@ export class TabarouComponent implements OnInit{
   selectedOptionText: string = '';
   dropdownOpen: boolean = false;
   codePaiement: string | null = null;
-  paymentData = {
 
+  paymentData = {
     montant: "0",
     nom_payeur: '',
     prenom_payeur: '',
@@ -47,19 +47,28 @@ export class TabarouComponent implements OnInit{
   }
 
   
-
-
-
-
-
   onConfirm() {
     this.loginInProgress = true; 
     this.walletService.makePayment(this.paymentData).subscribe(response => {
       if (response.status === 200) {
         this.codePaiement = response.data.code_paiement;
-        this.loginInProgress = true;
+        this.loginInProgress = false;
+        this.clearForm();
       }
     });
+  }
+
+  clearForm() {
+    this.paymentData = {
+      nom_payeur: '',
+      prenom_payeur: '',
+      remarque: '',
+      montant: "0",
+
+    };
+  
+    // Optional: clear selected image and text if required
+    this.selectedOptionText = 'Choisissez une option';
   }
 
   copyCode() {
