@@ -13,12 +13,12 @@ export class WalletService {
   constructor(private http: HttpClient) {}
 
   getWallets(): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Api-Key okKt1KRv.r1TeHByNOvQLTHC9hIJgDYh72K2Hj4ES');
+    const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
     return this.http.get<any>(this.apiUrl,{ headers });
   }
 
   makePayment(paymentData: any): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Api-Key okKt1KRv.r1TeHByNOvQLTHC9hIJgDYh72K2Hj4ES');
+    const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
 
 
     return this.http.post(this.apiUrl1, paymentData, { headers });
