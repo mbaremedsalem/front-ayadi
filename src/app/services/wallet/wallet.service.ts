@@ -8,19 +8,23 @@ import { Observable } from 'rxjs';
 })
 export class WalletService {
 
-  private apiUrl = 'https://ayadi-mouhssine-d90e75044b80.herokuapp.com/ayadi/get-wallets/';
-  private apiUrl1 = 'https://ayadi-mouhssine-d90e75044b80.herokuapp.com/ayadi/demand_payment/';
+  private apiUrl = 'http://159.203.176.54/ayadi/get-wallets/';
+  private apiUrl1 = 'http://159.203.176.54/ayadi/demand_payment/';
+  private apiUrlmasrivi = 'http://159.203.176.54/ayadi/create_transaction/';
   constructor(private http: HttpClient) {}
 
   getWallets(): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
-    return this.http.get<any>(this.apiUrl,{ headers });
+    // const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
+    return this.http.get<any>(this.apiUrl);
   }
 
   makePayment(paymentData: any): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
-
-
-    return this.http.post(this.apiUrl1, paymentData, { headers });
+    // const headers = new HttpHeaders().set('Authorization', 'Api-Key zNHv7vXH.d3gUeL8nAUBF63PMy8XNU5vSGEvzgeOH');
+    return this.http.post(this.apiUrl1, paymentData);
   }
+
+  peimantMasrivi(paymentData: any): Observable<any> {
+    return this.http.post(this.apiUrlmasrivi, paymentData, { observe: 'response' });
+  }
+  
 }

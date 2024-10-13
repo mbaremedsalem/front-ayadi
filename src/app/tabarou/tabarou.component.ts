@@ -13,6 +13,7 @@ export class TabarouComponent implements OnInit{
   selectedOptionText: string = '';
   dropdownOpen: boolean = false;
   codePaiement: string | null = null;
+  selectedTab: number = 1; // Onglet par défaut sélectionné
 
   paymentData = {
     montant: "0",
@@ -21,6 +22,11 @@ export class TabarouComponent implements OnInit{
     remarque: ''
   };
 
+  paymentMasriviData = {
+    amount: "0",
+    currency: '929',
+    description: ''
+  };
   constructor(private walletService: WalletService) {}
 
   ngOnInit(): void {
@@ -58,6 +64,42 @@ export class TabarouComponent implements OnInit{
     });
   }
 
+
+
+  onConfirmMasrivi() {
+    this.loginInProgress = true; // Set a loading indicator or similar
+    const newWindow = window.open('', '_blank', 'width=1000,height=1000');
+    if (!newWindow) {
+      console.error('Impossible d’ouvrir une nouvelle fenêtre.');
+      return;
+    }
+    this.walletService.peimantMasrivi(this.paymentMasriviData).subscribe(
+        response => {
+            this.loginInProgress = false; // Reset the loading indicator
+
+            // Check if the response indicates success
+            if (response.status === 200) {
+                // Handle success response
+                newWindow.document.write(response.body); // Écrit le contenu HTML
+                // Optionally navigate to a success page or show a success message
+                // this.router.navigate(['/success-page']);
+                // Or show a success message to the user
+            } else {
+                // Handle unexpected status codes
+                console.error("Unexpected response status:", response.status);
+                // Optionally show an error message to the user
+            }
+        },
+        error => {
+            this.loginInProgress = false; // Reset the loading indicator on error
+            console.error("Payment error:", error);
+            // Optionally show an error message to the user
+        }
+    );
+}
+  
+  
+  
   clearForm() {
     this.paymentData = {
       nom_payeur: '',
@@ -77,4 +119,6 @@ export class TabarouComponent implements OnInit{
       alert('Code copied to clipboard');
     }
   }
+
+  
 }

@@ -1,7 +1,5 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-
-
    <div class="col-md-6 offset-md-3">
 
                     <span class="anchor" id="formPayment"></span>
@@ -13,77 +11,124 @@
                             <div class="image-container">
                                 <img src="assets/icons/logo.jpeg" alt="Top Image" width="100%" height="200px" class="top-image">
                               </div>
-
-                            <h3 class="text-center">Ayady Mouhssine</h3>
-                            <hr>
-
-        
-                            <div *ngIf="codePaiement" class="result-container">
-                              <h2>Payment Code: {{ codePaiement }}</h2>
-
-                              <div class="page-content" style="padding-left: 0px; padding-bottom: 10px;">
-                                <button (click)="copyCode()" mat-raised-button class="example-icon">
-                                  <img src="assets/icons/copy.png" class="mat-iconleft" width="20px" height="20px" alt="">
-
+                                <hr>
+                              <div class="tabs">
+                                <button (click)="selectedTab = 1" [class.active]="selectedTab === 1">
+                                  <img src="assets/icons/sedad_logo_bmi.jpg" class="mat-iconleft" width="20px" height="20px" alt="">  
                                 </button>
-                                </div>
-                            </div>
+                                <button (click)="selectedTab = 2" [class.active]="selectedTab === 2">
+                                  <img src="assets/icons/masrivi.jfif" class="mat-iconleft" width="20px" height="20px" alt="">
+                                </button>
+                              </div>
 
-                            
-                            <form class="form" (ngSubmit)="onConfirm()">
-                                <div class="form-group">
-                                    <label for="cc_name">Nom Payer</label>
-                                    <input type="text" class="form-control" id="nom_payeur" [(ngModel)]="paymentData.nom_payeur" name="nom_payeur" required>
-                                </div>
-
-                                <div class="form-group">
-                                  <label for="cc_name">Prenom Payer</label>
-                                  <input type="text" class="form-control" id="prenom_payeur" [(ngModel)]="paymentData.prenom_payeur" name="prenom_payeur" required>
-                                </div>
-
-                                <div class="form-group">
-                                  <label for="cc_name">Remarque</label>
-                                  <textarea type="text" class="form-control" id="remarque" [(ngModel)]="paymentData.remarque" name="remarque">
-                                    </textarea>
-                                </div>
-
-                                <div class="form-group custom-select-container">
-                                  <div class="custom-select-container">
-                                    <div class="custom-select" (click)="toggleDropdown()">
-                                      <div class="selected-option">
-                                        <img *ngIf="selectedOptionImage" [src]="selectedOptionImage" alt="Selected Option" class="selected-image">
-                                        {{ selectedOptionText || 'Choisissez une option' }}
+                              <div *ngIf="selectedTab === 1">
+                                <form class="form" (ngSubmit)="onConfirmMasrivi()">
+                                
+                                  <div class="form-group">
+                                      <label for="cc_name">Code Devise</label>
+                                      <input type="text" class="form-control" id="nom_payeur" [(ngModel)]="paymentMasriviData.currency" name="nom_payeur" required>
+                                  </div>
+  
+  
+                                  <div class="form-group">
+                                    <label for="cc_name">Description</label>
+                                    <textarea type="text" class="form-control" id="remarque" [(ngModel)]="paymentMasriviData.description" name="remarque">
+                                      </textarea>
+                                  </div>
+  
+                                  <div class="form-inline">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">MRU</span></div>
+                                        <input id="montant" type="number" [(ngModel)]="paymentMasriviData.amount" name="montant" required placeholder="39000000">
+                                        <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                                    </div>
+                                  </div>
+  
+                                  <hr>
+                                  <div class="form-group row">
+                                      <div class="col-md-12">
+                                          <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="loginInProgress">
+                                            <span *ngIf="!loginInProgress"> Payer </span>
+                                            <mat-progress-spinner *ngIf="loginInProgress" mode="indeterminate" style="width: 20px; height: 20px; margin: auto;"></mat-progress-spinner>
+                                          </button>
                                       </div>
-                                      <div class="dropdown" *ngIf="dropdownOpen">
-                                        <div *ngFor="let wallet of wallets" class="dropdown-option" (click)="selectOption(wallet.image, wallet.moyen_paiement)">
-                                          <img [src]="wallet.image" width="100px" alt="{{ wallet.moyen_paiement }}" class="option-image">{{ wallet.moyen_paiement }}
+                                  </div>
+                                    </form>
+
+                              </div>
+
+                              <div *ngIf="selectedTab === 2">
+                                <div *ngIf="codePaiement" class="result-container">
+                                  <h2>Payment Code: {{ codePaiement }}</h2>
+    
+                                  <div class="page-content" style="padding-left: 0px; padding-bottom: 10px;">
+                                    <button (click)="copyCode()" mat-raised-button class="example-icon">
+    
+                                    </button>
+                                    </div>
+                                </div>
+    
+                                <form class="form" (ngSubmit)="onConfirm()">
+                                    <div class="form-group">
+                                        <label for="cc_name">Nom Payer</label>
+                                        <input type="text" class="form-control" id="nom_payeur" [(ngModel)]="paymentData.nom_payeur" name="nom_payeur" required>
+                                    </div>
+    
+                                    <div class="form-group">
+                                      <label for="cc_name">Prenom Payer</label>
+                                      <input type="text" class="form-control" id="prenom_payeur" [(ngModel)]="paymentData.prenom_payeur" name="prenom_payeur" required>
+                                    </div>
+    
+                                    <div class="form-group">
+                                      <label for="cc_name">Remarque</label>
+                                      <textarea type="text" class="form-control" id="remarque" [(ngModel)]="paymentData.remarque" name="remarque">
+                                        </textarea>
+                                    </div>
+    
+                                    <div class="form-group custom-select-container">
+                                      <div class="custom-select-container">
+                                        <div class="custom-select" (click)="toggleDropdown()">
+                                          <div class="selected-option">
+                                            <img *ngIf="selectedOptionImage" [src]="selectedOptionImage" alt="Selected Option" class="selected-image">
+                                            {{ selectedOptionText || 'Choisissez une option' }}
+                                          </div>
+                                          <div class="dropdown" *ngIf="dropdownOpen">
+                                            <div *ngFor="let wallet of wallets" class="dropdown-option" (click)="selectOption(wallet.image, wallet.moyen_paiement)">
+                                              <img [src]="wallet.image" width="100px" alt="{{ wallet.moyen_paiement }}" class="option-image">{{ wallet.moyen_paiement }}
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-
-                                <div class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">MRU</span></div>
-                                        <input id="montant" type="number" [(ngModel)]="paymentData.montant" name="montant" required placeholder="39000000">
-                                        <div class="input-group-append"><span class="input-group-text">.00</span></div>
+    
+                                    <div class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span class="input-group-text">MRU</span></div>
+                                            <input id="montant" type="number" [(ngModel)]="paymentData.montant" name="montant" required placeholder="39000000">
+                                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                                        </div>
                                     </div>
-                                </div>
-
-
-
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="loginInProgress">
-                                          <span *ngIf="!loginInProgress"> Confirm </span>
-                                          <mat-progress-spinner *ngIf="loginInProgress" mode="indeterminate" style="width: 20px; height: 20px; margin: auto;"></mat-progress-spinner>
-                                        </button>
+    
+    
+    
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-success btn-lg btn-block" [disabled]="loginInProgress">
+                                              <span *ngIf="!loginInProgress"> Confirm </span>
+                                              <mat-progress-spinner *ngIf="loginInProgress" mode="indeterminate" style="width: 20px; height: 20px; margin: auto;"></mat-progress-spinner>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                              </div>
+
+
+
+
+
                         </div>
                     </div>
+</div>
 
-                
+                                    
