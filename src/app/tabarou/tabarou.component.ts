@@ -66,39 +66,61 @@ export class TabarouComponent implements OnInit{
 
 
 
-  onConfirmMasrivi() {
-    this.loginInProgress = true; // Set a loading indicator or similar
-    const newWindow = window.open('', '_blank', 'width=1000,height=1000');
-    if (!newWindow) {
-      console.error('Impossible d’ouvrir une nouvelle fenêtre.');
-      return;
-    }
-    this.walletService.peimantMasrivi(this.paymentMasriviData).subscribe(
-        response => {
-            this.loginInProgress = false; // Reset the loading indicator
+//   onConfirmMasrivi() {
+//     this.loginInProgress = true; // Set a loading indicator or similar
+//     const newWindow = window.open('', '_blank', 'width=1000,height=1000');
+//     if (!newWindow) {
+//       console.error('Impossible d’ouvrir une nouvelle fenêtre.');
+//       return;
+//     }
+//     this.walletService.peimantMasrivi(this.paymentMasriviData).subscribe(
+//         response => {
+//             this.loginInProgress = false; // Reset the loading indicator
 
-            // Check if the response indicates success
-            if (response.status === 200) {
-                // Handle success response
-                newWindow.document.write(response.body); // Écrit le contenu HTML
-                // Optionally navigate to a success page or show a success message
-                // this.router.navigate(['/success-page']);
-                // Or show a success message to the user
-            } else {
-                // Handle unexpected status codes
-                console.error("Unexpected response status:", response.status);
-                // Optionally show an error message to the user
-            }
-        },
-        error => {
-            this.loginInProgress = false; // Reset the loading indicator on error
-            console.error("Payment error:", error);
-            // Optionally show an error message to the user
-        }
-    );
+//             // Check if the response indicates success
+//             if (response.status === 200) {
+//                 // Handle success response
+//                 newWindow.document.write(response.body); // Écrit le contenu HTML
+//                 // Optionally navigate to a success page or show a success message
+//             } else {
+//                 // Handle unexpected status codes
+//                 console.error("Unexpected response status:", response.status);
+//                 // Optionally show an error message to the user
+//             }
+//         },
+//         error => {
+//             this.loginInProgress = false; // Reset the loading indicator on error
+//             console.error("Payment error:", error);
+//             // Optionally show an error message to the user
+//         }
+//     );
+// }
+  
+onConfirmMasrivi() {
+  this.loginInProgress = true; // Set a loading indicator or similar
+
+
+  this.walletService.peimantMasrivi(this.paymentMasriviData).subscribe(
+      response => {
+          this.loginInProgress = false; // Reset the loading indicator
+          const newWindow = window.open('', '_blank', 'width=1000,height=1000');
+  
+          if (!newWindow) {
+              console.error('Impossible d’ouvrir une nouvelle fenêtre.');
+              return;
+          }
+          // Now the response is treated as text, which is HTML
+          newWindow.document.write(response); 
+          newWindow.document.close(); // Close the document to render the content
+      },
+      error => {
+          this.loginInProgress = false; // Reset the loading indicator on error
+          console.error("Payment error:", error);
+          // Optionally show an error message to the user
+      }
+  );
 }
-  
-  
+
   
   clearForm() {
     this.paymentData = {

@@ -24,7 +24,9 @@ export class WalletService {
   }
 
   peimantMasrivi(paymentData: any): Observable<any> {
-    return this.http.post(this.apiUrlmasrivi, paymentData, { observe: 'response' });
+    return this.http.post(this.apiUrlmasrivi, paymentData,  {
+      responseType: 'text'  // Specify that we expect a text response
+  });
   }
   
 }
